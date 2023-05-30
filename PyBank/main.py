@@ -1,8 +1,11 @@
+#import libraries and dependencies
+import os
 import csv
 
+#set the path for the csv file
+file_budget = os.path.join("Resources", "budget_data.csv")
 
-file_budget = "Resources/budget_data.csv"
-
+#declare variables to store data
 total_profit = 0
 total_month = 0
 pre_profit = 0
@@ -14,6 +17,8 @@ greatest_increase_month = ""
 greatest_decrease = 0
 greatest_decrease_month = ""
 
+
+#open the file and begin reading the data
 with open(file_budget) as input_file:
     content = csv.reader(input_file)
     next(content)
@@ -44,15 +49,18 @@ with open(file_budget) as input_file:
             greatest_decrease_month = row[0]
 
     avg_change = total_change/month_change
-    print(avg_change)
 
 
-print(total_profit)
-print(total_month)
+#print your new variable results in the terminal to ensure accuracy, then comment out so they wont interfere with the code
+# print(avg_change)
+
+# print(total_profit)
+# print(total_month)
+# print(greatest_increase)
+# print(greatest_decrease)
 
 
-
-
+#write output formula with verified variable results
 output = f"""
 Financial Analysis
 ----------------------------
@@ -60,10 +68,11 @@ Total Months: {total_month}
 Total: ${total_profit}
 Average Change: ${avg_change:,.2f}
 Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})
-Greatest Decrease in Profits: {greatest_decrease_month} ($ {greatest_decrease})
+Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})
 """
 
 print(output)
 
+#create a separate text file with the final results
 with open("Analysis/pybank_output.txt", "w") as txt_file:
     txt_file.write(output)
