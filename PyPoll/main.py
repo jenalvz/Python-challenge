@@ -5,56 +5,72 @@ import csv
 #set the path for the CSV file
 file_election = "Resources/election_data.csv"
 
-#declare the output file for the final analysis results
-
 
 # declare variables
 total_votes_cast = 0
-all_candidates_list = []
 stockham_votes = 0
 degette_votes = 0
 doane_votes = 0
-cv={}
-cp = {}
 
-
+#open the file abd begin reading the data
 with open(file_election) as input_file:
-    content = csv.reader(input_file)
-    next(content)
-
-    for row in content:
-        total_votes_cast = total_votes_cast + 1
-        
-        candidate = row[2]
-
-        if candidate not in all_candidates_list:
-            all_candidates_list.append(candidate)
-            cv[candidate] =0
-        
-        cv[candidate] = cv[candidate] +1
+    poll_data = csv.reader(input_file)
+    next(poll_data)
 
 
- 
-# calculate the total number of votes CAST  
-print(total_votes_cast)
+#calculate total number of votes cast for each candidate
+    for row in poll_data:
+        total_votes_cast += 1
+        if row[2] == "Charles Casper Stockham":
+            stockham_votes += 1
+        elif (row[2] == "Diana DeGette"):
+            degette_votes += 1
+        elif (row[2] == "Raymon Anthony Doane"):
+            doane_votes += 1
 
+#calculating candidates' percentages
+percent_stockham = round(100 * stockham_votes/total_votes_cast, 3)
+percent_degette = round(100 * degette_votes/total_votes_cast, 3)
+percent_doane = round(100 * doane_votes/total_votes_cast, 3)
 
-# calculate a complete list of candidates who received votes 
-print(all_candidates_list)
+#create candidate dictionary with their names and election results
+all_candidates = {'Charles Casper Stockham': percent_stockham,
+                  'Diana DeGette': percent_degette,
+                  'Raymon Anthony Doane': percent_doane}
 
-# calc the WINNER based on pop vote
+#declare winner by higest %, test by printing the winner name in terminal, and them commenting out
+winner = max(all_candidates, key=all_candidates.get)
+# print(winner)
 
-# calc percentage of votes each candidate won
-print(cv)
+# print(total_votes_cast)
+# print(stockham_votes)
+# print(percent_stockham)
+# print(degette_votes)
+# print(percent_degette)
+# print(doane_votes)
+# print(percent_doane)
+# print(winner)
 
-for k in cv:
-    v = cv.get(k)
-    cp[k] = float(v)/float(total_votes_cast)
+# time to create a txt file with the analysis and results
+output = f"""
+Election Results
+-------------------------
+Total Votes: {total_votes_cast}
+-------------------------
+Charles Casper Stockham: {percent_stockham}% ({stockham_votes})
+Diana DeGette: {percent_degette}% ({degette_votes})
+Raymon Anthony Doane: {percent_doane}% ({doane_votes})
+-------------------------
+Winner: {winner}
+-------------------------
 
-print(cp)
+"""
 
+print(output)
 
-
+#create a separate text file with the final result
+with open("Analysis/pypoll_output.txt", "w") as txt_file:
+    txt_file.write(output)
 
 
 
