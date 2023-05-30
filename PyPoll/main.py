@@ -12,7 +12,7 @@ stockham_votes = 0
 degette_votes = 0
 doane_votes = 0
 
-#open the file abd begin reading the data
+#open the file and begin reading the data
 with open(file_election) as input_file:
     poll_data = csv.reader(input_file)
     next(poll_data)
@@ -38,7 +38,7 @@ all_candidates = {'Charles Casper Stockham': percent_stockham,
                   'Diana DeGette': percent_degette,
                   'Raymon Anthony Doane': percent_doane}
 
-#declare winner by higest %, test by printing the winner name in terminal, and them commenting out
+#pull winner based on higest %, test by printing the winner name in terminal, and them commenting out
 winner = max(all_candidates, key=all_candidates.get)
 # print(winner)
 

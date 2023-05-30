@@ -3,7 +3,7 @@ import os
 import csv
 
 #set the path for the csv file
-file_budget = os.path.join("Resources", "budget_data.csv")
+file_budget = "Resources/budget_data.csv"
 
 #declare variables to store data
 total_profit = 0
@@ -24,8 +24,6 @@ with open(file_budget) as input_file:
     next(content)
 
     for row in content:
-        # print(row)
-        # exit()
 
         total_profit = total_profit + int(row[1])
         total_month = total_month + 1
